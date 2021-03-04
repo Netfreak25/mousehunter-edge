@@ -81,8 +81,10 @@ Default output format [None]: json
 ### config mousehunter
 copy config yaml to ~/.config/mousehunter-edge/
 ```bash
-cd mousehunter-edge/imagewatcher
-
+mkdir .config
+cd .config
+mkdir mousehunter-edge
+cd ~/mousehunter-edge/imagewatcher
 cp config.yaml ~/.config/mousehunter-edge/config.yaml
 ```
 
@@ -115,12 +117,16 @@ Connect motion detector OUT to GPIO8, check `pinout` to see your layout.
 Configure  `~/.config/mousehunter-edge/config.yaml` with your AWS bucket name and ensure that aws credentials can read the objects in it.
 Keep APNToken and certfile empty if you do not have it.
 
+```bash
+sudo nano ~/.config/mousehunter-edge/config.yaml
+```
+
 ``` yaml
 bucket: <your AWS S3 bucket>
 curfewTime: 15
-APNToken: <your Apple Push Notification Service (APNs) Token>
+APNToken: <<<YOUR_APPLE_PUSH_NOTIFICATION_SERVICE_APNs_TOKEN>>>
 alertThreshold: 2.0
-certfile: <your Apple certificate for APN for APN usage> 
+certfile: <<<YOUR_APPLE_CERTIFICATE_FOR_APN_FOR_APN_USAGE>>>
 ```
 
 Update `WorkingDirectory` values for both .service files.
