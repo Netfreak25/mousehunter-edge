@@ -26,33 +26,64 @@ Leverage Google Coral Edge TPU to run millisecond inference on infrared images c
 ## Setup:
 
 update your Pi-OS
+
 ```bash
 sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get dist-upgrade
 ```
 
 install git
+
 ```bash
 sudo apt-get install git
 ```
 
 install pip3
+
 ```bash
 sudo apt-get install python3-pip
 ```
 
-Clone this repo on your raspberry 
+Clone this repo on your raspberry
+
 ```bash
 git clone https://github.com/gerrito333/mousehunter-edge.git
 ```
 
 and run:
+
 ```bash
 echo "deb https://packages.cloud.google.com/apt coral-edgetpu-stable main" | sudo tee /etc/apt/sources.list.d/coral-edgetpu.list
 curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
 sudo apt-get update
 sudo apt-get install libedgetpu1-std
+```
+
+install the AWS CLI
+
+```bash
 pip3 install awscli --upgrade --user
+```
+
+Add AWS CLI executable to your Command Line Path
+
+```bash
+export PATH=/home/pi/.local/bin:$PATH
+```
+
+Configure the default AWS CLI
+
+```bash
 aws configure
+
+AWS Access Key ID [None]: <<<YOUR_ACCESS_KEY_ID>>>
+AWS Secret Access Key [None]: <<<YOUR_SECRET_ACCESS_KEY>>>
+Default region name [None]: <<<YOUR_REGION_NAME_EXAMPLE_eu-central-1>>>
+Default output format [None]: json
+```
+
+copy config yaml
+
+```bash
 cp config.yaml ~/.config/mousehunter-edge/config.yaml
 ```
 
@@ -84,6 +115,7 @@ Connect motion detector OUT to GPIO8, check `pinout` to see your layout.
 
 Configure  `~/.config/mousehunter-edge/config.yaml` with your AWS bucket name and ensure that aws credentials can read the objects in it.
 Keep APNToken and certfile empty if you do not have it.
+
 ``` yaml
 bucket: <your AWS S3 bucket>
 curfewTime: 15
@@ -124,9 +156,3 @@ docker/object_detection/scripts/prepare_checkpoint_and_dataset.sh
 
 Contine to follow the coral.ai tutorial part "Start training" and "Compile the model for the Edge TPU"
 Copy the created model to the imagewatcher/model/ folder.
-
-
-
-
-
-
