@@ -122,7 +122,7 @@ sudo nano ~/.config/mousehunter-edge/config.yaml
 ```
 
 ``` yaml
-bucket: <your AWS S3 bucket>
+bucket: <<<YOUR_AWS_S3_BUCKET>>>
 curfewTime: 15
 APNToken: <<<YOUR_APPLE_PUSH_NOTIFICATION_SERVICE_APNs_TOKEN>>>
 alertThreshold: 2.0
@@ -132,8 +132,8 @@ certfile: <<<YOUR_APPLE_CERTIFICATE_FOR_APN_FOR_APN_USAGE>>>
 Update `WorkingDirectory` values for both .service files.
 
 ```bash
-sudo systemctl enable mausjaeger.service
-sudo systemctl enable imagewatcher.service
+sudo systemctl enable ~/mousehunter-edge/mausjaeger/mausjaeger.service
+sudo systemctl enable ~/mousehunter-edge/imagewatcher/imagewatcher.service
 sudo systemctl start mausjaeger.service
 sudo systemctl start imagewatcher.service
 ```
