@@ -45,7 +45,7 @@ Clone this repo on your raspberry
 git clone https://github.com/gerrito333/mousehunter-edge.git
 ```
 
-###Coral support
+### Coral support
 install the compiler 
 ```bash
 echo "deb https://packages.cloud.google.com/apt coral-edgetpu-stable main" | sudo tee /etc/apt/sources.list.d/coral-edgetpu.list
@@ -57,7 +57,7 @@ install Edge TPU runtime library
 sudo apt-get install libedgetpu1-std
 ```
 
-###Amazon support
+### Amazon support
 install the AWS Command Line Interface
 ```bash
 pip3 install awscli --upgrade --user
