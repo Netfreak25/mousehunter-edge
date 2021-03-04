@@ -81,7 +81,7 @@ Default output format [None]: json
 ### config mousehunter
 copy config yaml to ~/.config/mousehunter-edge/
 ```bash
-cd mousehunter-edge/
+cd mousehunter-edge/imagewatcher
 
 cp config.yaml ~/.config/mousehunter-edge/config.yaml
 ```
