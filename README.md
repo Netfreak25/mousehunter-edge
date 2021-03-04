@@ -45,15 +45,20 @@ Clone this repo on your raspberry
 git clone https://github.com/gerrito333/mousehunter-edge.git
 ```
 
-and run:
+###Coral support
+install the compiler 
 ```bash
 echo "deb https://packages.cloud.google.com/apt coral-edgetpu-stable main" | sudo tee /etc/apt/sources.list.d/coral-edgetpu.list
 curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
 sudo apt-get update
+```
+install Edge TPU runtime library
+```bash
 sudo apt-get install libedgetpu1-std
 ```
 
-install the AWS CLI
+###Amazon support
+install the AWS Command Line Interface
 ```bash
 pip3 install awscli --upgrade --user
 ```
@@ -73,8 +78,11 @@ Default region name [None]: <<<YOUR_REGION_NAME_EXAMPLE_eu-central-1>>>
 Default output format [None]: json
 ```
 
-copy config yaml
+### config mousehunter
+copy config yaml to ~/.config/mousehunter-edge/
 ```bash
+cd mousehunter-edge/
+
 cp config.yaml ~/.config/mousehunter-edge/config.yaml
 ```
 
