@@ -25,8 +25,27 @@ Leverage Google Coral Edge TPU to run millisecond inference on infrared images c
 
 ## Setup:
 
-Clone this repo on your raspberry and run:
+update your Pi-OS
+```bash
+sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get dist-upgrade
+```
 
+install git
+```bash
+sudo apt-get install git
+```
+
+install pip3
+```bash
+sudo apt-get install python3-pip
+```
+
+Clone this repo on your raspberry 
+```bash
+git clone https://github.com/gerrito333/mousehunter-edge.git
+```
+
+and run:
 ```bash
 echo "deb https://packages.cloud.google.com/apt coral-edgetpu-stable main" | sudo tee /etc/apt/sources.list.d/coral-edgetpu.list
 curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
