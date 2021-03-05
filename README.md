@@ -30,6 +30,10 @@ update your Pi-OS
 sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get dist-upgrade
 ```
 
+Enable Systemrequirements (Camera...
+```bash
+sudo raspi-config
+```
 install git
 ```bash
 sudo apt-get install git
@@ -43,6 +47,59 @@ sudo apt-get install python3-pip
 Clone this repo on your raspberry
 ```bash
 git clone https://github.com/gerrito333/mousehunter-edge.git
+```
+
+Install pypi for gpio support
+```bash
+pip3 install RPi.GPIO
+```
+
+Install picamera
+```bash
+sudo apt-get install python-picamera python3-picamera
+```
+
+install pinotify
+```bash
+pip3 install pyinotify
+```
+
+Install watchdog
+```bash
+pip3 install watchdog
+```
+
+Install boto3
+```bash
+pip3 install boto3
+```
+
+Install Pillow
+```bash
+pip3 install Pillow==2.2.2
+```
+
+Install libtiff5
+```bash
+sudo apt install libtiff5
+```
+
+Install tflite runtime
+```bash
+echo "deb https://packages.cloud.google.com/apt coral-edgetpu-stable main" | sudo tee /etc/apt/sources.list.d/coral-edgetpu.list
+curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+sudo apt-get update
+sudo apt-get install python3-tflite-runtime
+```
+
+Install APScheduler
+```bash
+pip3 install APScheduler
+```
+
+install confuse
+```bash
+pip3 install confuse
 ```
 
 ### Coral support
@@ -129,7 +186,11 @@ alertThreshold: 2.0
 certfile: <<<YOUR_APPLE_CERTIFICATE_FOR_APN_FOR_APN_USAGE>>>
 ```
 
-Update `WorkingDirectory` values for both .service files.
+Update `WorkingDirectory` values for both .service files if not '/home/pi/mousehunter-edge/'.
+```bash
+sudo nano ~/mousehunter-edge/mausjaeger/mausjaeger.service
+sudo nano ~/mousehunter-edge/imagewatcher/imagewatcher.service
+```
 
 ```bash
 sudo systemctl enable ~/mousehunter-edge/mausjaeger/mausjaeger.service
@@ -138,6 +199,11 @@ sudo systemctl start mausjaeger.service
 sudo systemctl start imagewatcher.service
 ```
 
+Proove if services are running
+```bash
+systemctl status mausjaeger.service
+systemctl status imagewatcher.service
+```
 ## Retrain your own object detection model:
 
 label you data with labelImg:

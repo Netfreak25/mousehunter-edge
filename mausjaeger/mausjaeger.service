@@ -4,7 +4,7 @@ After=network.target
 
 [Service]
 ExecStart=/usr/bin/python3 -u mausjaeger.py
-WorkingDirectory=/home/pi/PycharmProjects/mausjaeger
+WorkingDirectory=/home/pi/mousehunter-edge/mausjaeger
 StandardOutput=inherit
 StandardError=inherit
 Restart=always

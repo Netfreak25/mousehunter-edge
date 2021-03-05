@@ -4,7 +4,7 @@ After=network.target
 
 [Service]
 ExecStart=/usr/bin/python3 -u imagewatcher.py
-WorkingDirectory=/home/pi/PycharmProjects/imagewatcher
+WorkingDirectory=/home/pi/mousehunter-edge/imagewatcher
 StandardOutput=inherit
 StandardError=inherit
 Restart=always
