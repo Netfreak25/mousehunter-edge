@@ -39,24 +39,32 @@ install git
 sudo apt-get install git
 ```
 
+Install picamera
+```bash
+sudo apt-get install python-picamera python3-picamera
+```
+
+Install libtiff5
+```bash
+sudo apt install libtiff5
+```
+
+Install tflite runtime
+```bash
+echo "deb https://packages.cloud.google.com/apt coral-edgetpu-stable main" | sudo tee /etc/apt/sources.list.d/coral-edgetpu.list
+curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+sudo apt-get update
+sudo apt-get install python3-tflite-runtime
+```
+
 install pip3
 ```bash
 sudo apt-get install python3-pip
 ```
 
-Clone this repo on your raspberry
-```bash
-git clone https://github.com/gerrito333/mousehunter-edge.git
-```
-
 Install pypi for gpio support
 ```bash
 pip3 install RPi.GPIO
-```
-
-Install picamera
-```bash
-sudo apt-get install python-picamera python3-picamera
 ```
 
 install pinotify
@@ -79,19 +87,6 @@ Install Pillow
 pip3 install Pillow==2.2.2
 ```
 
-Install libtiff5
-```bash
-sudo apt install libtiff5
-```
-
-Install tflite runtime
-```bash
-echo "deb https://packages.cloud.google.com/apt coral-edgetpu-stable main" | sudo tee /etc/apt/sources.list.d/coral-edgetpu.list
-curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
-sudo apt-get update
-sudo apt-get install python3-tflite-runtime
-```
-
 Install APScheduler
 ```bash
 pip3 install APScheduler
@@ -100,6 +95,27 @@ pip3 install APScheduler
 install confuse
 ```bash
 pip3 install confuse
+```
+
+### Amazon support
+install the AWS Command Line Interface
+```bash
+pip3 install awscli --upgrade --user
+```
+
+Add AWS CLI executable to your Command Line Path
+```bash
+export PATH=/home/pi/.localbin:$PATH
+```
+
+Configure the default AWS CLI
+```bash
+aws configure
+
+AWS Access Key ID [None]: <<<YOUR_ACCESS_KEY_ID>>>
+AWS Secret Access Key [None]: <<<YOUR_SECRET_ACCESS_KEY>>>
+Default region name [None]: <<<YOUR_REGION_NAME_EXAMPLE_eu-central-1>>>
+Default output format [None]: json
 ```
 
 ### Coral support
@@ -114,25 +130,18 @@ install Edge TPU runtime library
 sudo apt-get install libedgetpu1-std
 ```
 
-### Amazon support
-install the AWS Command Line Interface
+### Mousehunter 
+Clone this repo on your raspberry
 ```bash
-pip3 install awscli --upgrade --user
+git clone https://github.com/gerrito333/mousehunter-edge.git
 ```
-
-Add AWS CLI executable to your Command Line Path
+create image- and logfolder with logfile
 ```bash
-export PATH=/home/pi/.local/bin:$PATH
-```
-
-Configure the default AWS CLI
-```bash
-aws configure
-
-AWS Access Key ID [None]: <<<YOUR_ACCESS_KEY_ID>>>
-AWS Secret Access Key [None]: <<<YOUR_SECRET_ACCESS_KEY>>>
-Default region name [None]: <<<YOUR_REGION_NAME_EXAMPLE_eu-central-1>>>
-Default output format [None]: json
+cd mousehunter-edge/mausjaeger/
+mkdir images
+mkdir logs
+cd logs
+touch mausjaeger.log
 ```
 
 ### config mousehunter
