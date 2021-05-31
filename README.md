@@ -236,3 +236,4 @@ docker/object_detection/scripts/prepare_checkpoint_and_dataset.sh
 
 Contine to follow the coral.ai tutorial part "Start training" and "Compile the model for the Edge TPU"
 Copy the created model to the imagewatcher/model/ folder.
+..
