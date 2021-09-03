@@ -1,13 +1,17 @@
 ![Catgate](docs/header.jpg)
 
 [![License: CC BY-NC 4.0](https://img.shields.io/badge/License-CC%20BY--NC%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc/4.0/)
-
+Originally developed by [gerrito333 on Github](https://github.com/gerrito333/mousehunter-edge)
 Keep your cat’s prey out of your home with a machine learning trained pet door.
 Turn your Sureflap cat flap into a smart flap that locks when you cat tries to take prey into your home.
 Leverage Google Coral Edge TPU to run millisecond inference on infrared images captured on your Raspberry Pi. Object detection is based on TFLite and a MobileNet v1 SSD.
 
 [![Prey detections video](docs/video_thumb.png)](https://youtu.be/7k1KKuclu8M)
 [Background story on Medium](https://link.medium.com/ZWStYOJhKcb)
+
+## Attention! The code in this repository is untested and will most likely not work like this!
+
+
 
 ## Required hardware:
 
@@ -27,39 +31,19 @@ Leverage Google Coral Edge TPU to run millisecond inference on infrared images c
 
 update your Pi-OS
 ```bash
-sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get dist-upgrade
+sudo apt update && sudo apt upgrade -y && sudo apt dist-upgrade -y
 ```
 
 Enable Systemrequirements (Camera...
 ```bash
 sudo raspi-config
 ```
-install git
-```bash
-sudo apt-get install git
-```
 
-Install picamera
-```bash
-sudo apt-get install python-picamera python3-picamera
-```
-
-Install libtiff5
-```bash
-sudo apt install libtiff5
-```
-
-Install tflite runtime
+Install Google Coral TFLite Runtime and other dependencies
 ```bash
 echo "deb https://packages.cloud.google.com/apt coral-edgetpu-stable main" | sudo tee /etc/apt/sources.list.d/coral-edgetpu.list
 curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
-sudo apt-get update
-sudo apt-get install python3-tflite-runtime
-```
-
-install pip3
-```bash
-sudo apt-get install python3-pip
+sudo apt-get install libedgetpu1-std python3-tflite-runtime git python-picamera python3-picamera libtiff5 python3-pip
 ```
 
 Install pypi for gpio support
