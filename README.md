@@ -9,9 +9,9 @@ Leverage Google Coral Edge TPU to run millisecond inference on infrared images c
 [![Prey detections video](docs/video_thumb.png)](https://youtu.be/7k1KKuclu8M)
 [Background story on Medium](https://link.medium.com/ZWStYOJhKcb)
 
-> # Warning! The code in this repository is still in an early stage of development and will not work as it is. If you are looking for something that works I recommend the original repository from [gerrito333 on Github](https://github.com/gerrito333/mousehunter-edge) combined with the comments from [Tronje-the-Falconer](https://github.com/Tronje-the-Falconer/mousehunter-edge).
+> # Warning! The code in this repository is still in an early stage of development and will not work as it is. If you are looking for something that works I recommend the original repository from [gerrito333](https://github.com/gerrito333/mousehunter-edge) combined with the comments from [Tronje-the-Falconer](https://github.com/Tronje-the-Falconer/mousehunter-edge).
 
-
+## The goal of this repository is to operate without motion detectors.
 
 ## Required hardware:
 
@@ -43,7 +43,7 @@ sudo raspi-config
 ```bash
 echo "deb https://packages.cloud.google.com/apt coral-edgetpu-stable main" | sudo tee /etc/apt/sources.list.d/coral-edgetpu.list
 curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
-sudo apt-get install libedgetpu1-std python3-tflite-runtime git python-picamera python3-picamera libtiff5 python3-pip
+sudo apt update && sudo apt install libedgetpu1-std python3-tflite-runtime git python3-picamera libtiff5 python3-pip
 ```
 
 
