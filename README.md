@@ -9,10 +9,7 @@ Leverage Google Coral Edge TPU to run millisecond inference on infrared images c
 [![Prey detections video](docs/video_thumb.png)](https://youtu.be/7k1KKuclu8M)
 [Background story on Medium](https://link.medium.com/ZWStYOJhKcb)
 
-> # Warning!
-> # The code in this repository is still in an early stage of development and will not work as it is.
-> # If you are looking for something that works I recommend the original repository from [gerrito333 on Github](https://github.com/gerrito333/mousehunter-edge)
-> # combined with the comments from [Tronje-the-Falconer](https://github.com/Tronje-the-Falconer/mousehunter-edge).
+> # Warning! The code in this repository is still in an early stage of development and will not work as it is. If you are looking for something that works I recommend the original repository from [gerrito333 on Github](https://github.com/gerrito333/mousehunter-edge) combined with the comments from [Tronje-the-Falconer](https://github.com/Tronje-the-Falconer/mousehunter-edge).
 
 
 
