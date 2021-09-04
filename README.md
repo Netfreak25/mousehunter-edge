@@ -9,7 +9,7 @@ Leverage Google Coral Edge TPU to run millisecond inference on infrared images c
 [![Prey detections video](docs/video_thumb.png)](https://youtu.be/7k1KKuclu8M)
 [Background story on Medium](https://link.medium.com/ZWStYOJhKcb)
 
-## Attention! The code in this repository is untested and will most likely not work like this!
+> # **Attention!** The code in this repository is untested and will most likely not work like this!
 
 
 
@@ -27,24 +27,28 @@ Leverage Google Coral Edge TPU to run millisecond inference on infrared images c
 * [Motion detector](https://amzn.to/3aB6nWC)
 * [Relay](https://amzn.to/38oLVpe)
 
-## Setup:
+## Setup Mausjaeger Service:
 
-update your Pi-OS
+### update your Pi-OS
 ```bash
 sudo apt update && sudo apt upgrade -y && sudo apt dist-upgrade -y
 ```
 
-Enable Systemrequirements (Camera...
+### Enable Systemrequirements (Camera...
 ```bash
 sudo raspi-config
 ```
 
-Install Google Coral TFLite Runtime and other dependencies
+### Install Google Coral TFLite Runtime and other dependencies
 ```bash
 echo "deb https://packages.cloud.google.com/apt coral-edgetpu-stable main" | sudo tee /etc/apt/sources.list.d/coral-edgetpu.list
 curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
 sudo apt-get install libedgetpu1-std python3-tflite-runtime git python-picamera python3-picamera libtiff5 python3-pip
 ```
+
+
+## Setup Imagewatcher Service
+
 
 Install pypi for gpio support
 ```bash
