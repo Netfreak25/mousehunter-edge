@@ -24,7 +24,6 @@ Leverage Google Coral Edge TPU to run millisecond inference on infrared images c
 * [Infrared camera](https://amzn.to/38tSWF4)
 * [Camera cable](https://amzn.to/3mGkagM)
 * [Jumper cables](https://amzn.to/3rkcYue)
-* [Motion detector](https://amzn.to/3aB6nWC)
 * [Relay](https://amzn.to/38oLVpe)
 
 ## Setup Mausjaeger Service:
@@ -45,6 +44,88 @@ echo "deb https://packages.cloud.google.com/apt coral-edgetpu-stable main" | sud
 curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
 sudo apt update && sudo apt install libedgetpu1-std python3-tflite-runtime git python3-picamera libtiff5 python3-pip
 ```
+
+### Install Dependencies an compile OpenCV
+The pip3-Package will not work on the RPi4, so you have do this yourself.
+Grab a coffee, this will take some time...
+
+#### Install Dependencies
+````bash
+sudo apt install cmake build-essential pkg-config git libjpeg-dev libtiff-dev libjasper-dev libpng-dev libwebp-dev libopenexr-dev libavcodec-dev libavformat-dev libswscale-dev libv4l-dev libxvidcore-dev libx264-dev libdc1394-22-dev libgstreamer-plugins-base1.0-dev libgstreamer1.0-dev libgtk-3-dev python3-pyqt5 libatlas-base-dev liblapacke-dev gfortran libhdf5-dev libhdf5-103-1 python3-dev python3-pip python3-numpy
+````
+
+#### enlarge swap before compiling
+````bash
+sudo nano /etc/dphys-swapfile
+````
+
+Change
+
+> CONF_SWAPSIZE=100
+
+to 
+
+> CONF_SWAPSIZE=2048
+
+
+Restart swap-Service
+````bash
+sudo systemctl restart dphys-swapfile
+````
+
+#### Get the latest version of OpenCV from GitHub.
+````bash
+cd ~
+git clone https://github.com/opencv/opencv.git
+git clone https://github.com/opencv/opencv_contrib.git
+````
+
+#### Create build dir and move into
+````bash
+mkdir ~/opencv/build
+cd ~/opencv/build
+````
+
+#### Generate makefile and compile
+````bash
+cmake -D CMAKE_BUILD_TYPE=RELEASE \
+    -D CMAKE_INSTALL_PREFIX=/usr/local \
+    -D OPENCV_EXTRA_MODULES_PATH=~/opencv_contrib/modules \
+    -D ENABLE_NEON=ON \
+    -D ENABLE_VFPV3=ON \
+    -D BUILD_TESTS=OFF \
+    -D INSTALL_PYTHON_EXAMPLES=OFF \
+    -D OPENCV_ENABLE_NONFREE=ON \
+    -D CMAKE_SHARED_LINKER_FLAGS=-latomic \
+    -D BUILD_EXAMPLES=OFF ..
+	
+make -j$(nproc)
+sudo make install
+sudo ldconfig
+````
+
+#### change swap back to original
+````bash
+sudo nano /etc/dphys-swapfile
+````
+
+Change
+
+> CONF_SWAPSIZE=2048
+
+to 
+
+> CONF_SWAPSIZE=100
+
+
+Restart swap-Service
+````bash
+sudo systemctl restart dphys-swapfile
+````
+
+
+
+
 
 
 ## Setup Imagewatcher Service
