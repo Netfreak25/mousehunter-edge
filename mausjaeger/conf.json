@@ -3,7 +3,7 @@
 	"min_motion_frames": 8,
 	"camera_warmup_time": 2.5,
 	"delta_thresh": 5,
-	"resolution": [640, 480],
+	"resolution": [1920, 1080],
 	"fps": 16,
 	"min_area": 5000,
 	"file_base_path": ~/mousehunter-edge/mausjaeger/images/
