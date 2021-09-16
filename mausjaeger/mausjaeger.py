@@ -1,5 +1,4 @@
 # import the necessary packages
-#from pyimagesearch.tempimage import TempImage
 from picamera.array import PiRGBArray
 from picamera import PiCamera
 import argparse
@@ -43,7 +42,6 @@ for f in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True
     movement = False
 
     # resize the frame, convert it to grayscale, and blur it
-    frame = imutils.resize(frame, width=500)
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     gray = cv2.GaussianBlur(gray, (21, 21), 0)
 
