@@ -124,6 +124,12 @@ sudo systemctl restart dphys-swapfile
 ````
 
 
+### Install Python Dependencies
+````bash
+sudo pip3 install argparse
+````
+
+
 
 
 

@@ -26,11 +26,11 @@ camera.framerate = conf["fps"]
 rawCapture = PiRGBArray(camera, size=tuple(conf["resolution"]))
 
 # allow the camera to warmup, then initialize the average frame, last
-# uploaded timestamp, and frame motion counter
+# saved timestamp, and frame motion counter
 print("[INFO] warming up...")
 time.sleep(conf["camera_warmup_time"])
 avg = None
-lastUploaded = datetime.datetime.now()
+lastSave = datetime.datetime.now()
 motionCounter = 0
 
 # capture frames from the camera
@@ -38,8 +38,9 @@ for f in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True
     # grab the raw NumPy array representing the image and initialize
     # the timestamp and occupied/unoccupied text
     frame = f.array
+    rawCapture.truncate(0)
     timestamp = datetime.datetime.now()
-    movement = false
+    movement = False
 
     # resize the frame, convert it to grayscale, and blur it
     frame = imutils.resize(frame, width=500)
@@ -72,19 +73,21 @@ for f in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True
         if cv2.contourArea(c) < conf["min_area"]:
             continue
         else:
-            movement = true
+            movement = True
     
     # check for movement
-    if movement==true:
+    if movement==True:
+        print("[INFO] Movement detected")
         # check to see if enough time has passed between savings
-        if (timestamp - lastUploaded).seconds >= conf["min_savings_seconds"]:
+        if (timestamp - lastSave).seconds >= conf["min_savings_seconds"]:
             # increment the motion counter
             motionCounter += 1
 
             # check to see if the number of frames with consistent motion is high enough
             if motionCounter >= conf["min_motion_frames"]:
+                print("[INFO] Saving image...")
                 # update the last uploaded timestamp and reset the motion counter
-                lastUploaded = timestamp
+                lastSave = timestamp
                 motionCounter = 0
                 path = "{base_path}/{timestamp}.jpg".format(base_path=conf["file_base_path"], timestamp=ts)
                 client.put_file(path, open(t.path, "rb"))

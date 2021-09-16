@@ -1,10 +1,10 @@
 {
-	"min_upload_seconds": 3.0,
-	"min_motion_frames": 8,
+	"min_motion_frames": 4,
+	"min_savings_seconds": 3,
 	"camera_warmup_time": 2.5,
-	"delta_thresh": 5,
-	"resolution": [1920, 1080],
+	"delta_thresh": 2,
+	"resolution": [640, 480],
 	"fps": 16,
 	"min_area": 5000,
-	"file_base_path": ~/mousehunter-edge/mausjaeger/images/
+	"file_base_path": "~/mousehunter-edge/mausjaeger/images/"
 }
