@@ -3,7 +3,7 @@ Description=Mausjaeger
 After=network.target
 
 [Service]
-ExecStart=/usr/bin/python3 -u mausjaeger.py
+ExecStart=/usr/bin/python3 -u /home/pi/mousehunter-edge/mausjaeger/mausjaeger.py --conf /home/pi/mousehunter-edge/mausjaeger/conf.json
 WorkingDirectory=/home/pi/mousehunter-edge/mausjaeger
 StandardOutput=inherit
 StandardError=inherit
