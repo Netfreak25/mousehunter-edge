@@ -29,8 +29,9 @@ rawCapture = PiRGBArray(camera, size=tuple(conf["resolution"]))
 print(str(datetime.datetime.now()) + " [INFO] warming up...")
 time.sleep(conf["camera_warmup_time"])
 avg = None
-lastSave = datetime.datetime.now()
-motionCounter = 0
+# only for debugging
+#c_count = 0
+#c_avg = 0
 
 # capture frames from the camera
 for f in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
@@ -60,39 +61,30 @@ for f in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True
     
     # threshold the delta image, dilate the thresholded image to fill#
     # in holes, then find contours on thresholded image
-    thresh = cv2.threshold(frameDelta, conf["delta_thresh"], 255, cv2.THRESH_BINARY)[1]
+    thresh = cv2.threshold(frameDelta, 1, 255, cv2.THRESH_BINARY)[1]
     thresh = cv2.dilate(thresh, None, iterations=2)
     cnts = cv2.findContours(thresh.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     cnts = imutils.grab_contours(cnts)
 
     # loop over the contours
     for c in cnts:
-        # if the contour is too small, ignore it
-        if cv2.contourArea(c) < conf["min_area"]:
-            continue
-        else:
-            movement = True
-    
-    # check for movement
-    if movement:
-        print(str(timestamp) + " [INFO] Movement detected")
-        # check to see if enough time has passed between savings
-        if (timestamp - lastSave).seconds >= conf["min_savings_seconds"]:
-            # increment the motion counter
-            motionCounter += 1
-
-            # check to see if the number of frames with consistent motion is high enough
-            if motionCounter >= conf["min_motion_frames"]:
-                print(str(timestamp) + " [INFO] Saving image...")
-                # update the last uploaded timestamp and reset the motion counter
-                lastSave = timestamp
-                motionCounter = 0
-                path = "{base_path}/{ts}.jpg".format(base_path=conf["file_base_path"], ts=timestamp.strftime('%Y%m%d%H%M%S%f'))
-                # Check if image saving was successful
-                if cv2.imwrite(path, frame):
-                    print(str(timestamp) + " [INFO] Image saved successful")
-                else:
-                    print(str(timestamp) + " [ERROR] Image could not be saved")
-    # otherwise, there is no movement
-    else:
-        motionCounter = 0
+        contours = cv2.contourArea(c)
+        # only for debugging
+        #if c_count >= conf["c_avg_count"]:
+        #    print(str(timestamp) + " [INFO] Average contours on last " + str(conf["c_avg_count"]) + " images: " + str(c_avg / conf["c_avg_count"]))
+        #    c_count = 0
+        #    c_avg = 0
+        #else:
+        #    c_count += 1
+        #    c_avg += int(contours)
+        #print(str(timestamp) + " [DEBUG] c_count: " + str(c_count))
+        # detect movement
+        if contours >= conf["min_contours"]:
+            print(str(timestamp) + " [INFO] Saving image...")
+            # update the last uploaded timestamp and reset the motion counter
+            path = "{base_path}/{ts}-{c}.jpg".format(base_path=conf["file_base_path"], ts=timestamp.strftime('%Y%m%d%H%M%S%f'), c=str(contours))
+            # Check if image saving was successful
+            if cv2.imwrite(path, frame):
+                print(str(timestamp) + " [INFO] Image saved successful")
+            else:
+                print(str(timestamp) + " [ERROR] Image could not be saved")
