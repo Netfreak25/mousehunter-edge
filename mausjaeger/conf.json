@@ -6,5 +6,5 @@
 	"resolution": [640, 480],
 	"fps": 16,
 	"min_area": 5000,
-	"file_base_path": "~/mousehunter-edge/mausjaeger/images/"
+	"file_base_path": "/home/pi/mousehunter-edge/mausjaeger/images/"
 }

@@ -26,7 +26,7 @@ rawCapture = PiRGBArray(camera, size=tuple(conf["resolution"]))
 
 # allow the camera to warmup, then initialize the average frame, last
 # saved timestamp, and frame motion counter
-print("[INFO] warming up...")
+print(str(datetime.datetime.now()) + " [INFO] warming up...")
 time.sleep(conf["camera_warmup_time"])
 avg = None
 lastSave = datetime.datetime.now()
@@ -47,7 +47,7 @@ for f in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True
 
 	# if the average frame is None, initialize it
     if avg is None:
-        print("[INFO] starting background model...")
+        print(str(timestamp) + " [INFO] starting background model...")
         avg = gray.copy().astype("float")
         rawCapture.truncate(0)
         continue
@@ -74,8 +74,8 @@ for f in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True
             movement = True
     
     # check for movement
-    if movement==True:
-        print("[INFO] Movement detected")
+    if movement:
+        print(str(timestamp) + " [INFO] Movement detected")
         # check to see if enough time has passed between savings
         if (timestamp - lastSave).seconds >= conf["min_savings_seconds"]:
             # increment the motion counter
@@ -83,14 +83,16 @@ for f in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True
 
             # check to see if the number of frames with consistent motion is high enough
             if motionCounter >= conf["min_motion_frames"]:
-                print("[INFO] Saving image...")
+                print(str(timestamp) + " [INFO] Saving image...")
                 # update the last uploaded timestamp and reset the motion counter
                 lastSave = timestamp
                 motionCounter = 0
-                path = "{base_path}/{timestamp}.jpg".format(base_path=conf["file_base_path"], timestamp=ts)
-                client.put_file(path, open(t.path, "rb"))
-                cv2.imwrite(path, frame)
-    
+                path = "{base_path}/{ts}.jpg".format(base_path=conf["file_base_path"], ts=timestamp.strftime('%Y%m%d%H%M%S%f'))
+                # Check if image saving was successful
+                if cv2.imwrite(path, frame):
+                    print(str(timestamp) + " [INFO] Image saved successful")
+                else:
+                    print(str(timestamp) + " [ERROR] Image could not be saved")
     # otherwise, there is no movement
     else:
         motionCounter = 0

@@ -129,7 +129,34 @@ sudo systemctl restart dphys-swapfile
 sudo pip3 install argparse
 ````
 
+### Clone this repo on your raspberry
+```bash
+git clone https://github.com/de-wax/mousehunter-edge.git
+```
 
+### create image-folder
+```bash
+cd ~/mousehunter-edge/mausjaeger/
+mkdir images
+```
+
+### Enable, start  and check Mausjaeger-Service
+````bash
+sudo systemctl enable ~/mousehunter-edge/mausjaeger/mausjaeger.service
+sudo systemctl start mausjaeger.service
+````
+
+#### Check if service is running
+````bash
+systemctl status mausjaeger.service
+````
+also look at the log-File at: /var/log/mausjaeger.log
+
+### Optional: Enable Log-Rotate for mausjaeger.log
+````bash
+sudo cp /home/pi/mousehunter-edge/mausjaeger/mausjaeger /etc/logrotate.d/mausjaeger
+sudo systemctl restart logrotate
+````
 
 
 
@@ -277,15 +304,12 @@ sudo nano ~/mousehunter-edge/imagewatcher/imagewatcher.service
 ```
 
 ```bash
-sudo systemctl enable ~/mousehunter-edge/mausjaeger/mausjaeger.service
 sudo systemctl enable ~/mousehunter-edge/imagewatcher/imagewatcher.service
-sudo systemctl start mausjaeger.service
 sudo systemctl start imagewatcher.service
 ```
 
 Proove if services are running
 ```bash
-systemctl status mausjaeger.service
 systemctl status imagewatcher.service
 ```
 ## Retrain your own object detection model:
