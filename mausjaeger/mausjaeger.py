@@ -79,7 +79,7 @@ for f in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True
         if contours >= conf["min_contours"]:
             print(str(timestamp) + " [INFO] Saving image...")
             # update the last uploaded timestamp and reset the motion counter
-            path = "{base_path}/{ts}-{c}.jpg".format(base_path=conf["file_base_path"], ts=timestamp.strftime('%Y%m%d%H%M%S%f'), c=str(contours))
+            path = "{base_path}/{ts}-{c}.jpg".format(base_path=conf["file_base_path"], ts=timestamp.strftime('%Y%m%d%H%M%S%f'), c=int(contours))
             # Check if image saving was successful
             if cv2.imwrite(path, frame):
                 print(str(timestamp) + " [INFO] Image saved successful")
