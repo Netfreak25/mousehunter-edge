@@ -1,6 +1,6 @@
 {
 	"camera_warmup_time": 2,
-	"min_contours": 1000,
+	"min_contours": 2500,
 	"c_avg_count": 480,
 	"resolution": [640, 480],
 	"fps": 4,
