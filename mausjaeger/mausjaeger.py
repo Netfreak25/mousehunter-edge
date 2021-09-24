@@ -31,6 +31,7 @@ time.sleep(conf["camera_warmup_time"])
 avg = None
 c_count = 0
 c_avg = 0
+f_count = 0
 
 # capture frames from the camera
 for f in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
@@ -64,19 +65,20 @@ for f in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True
     thresh = cv2.dilate(thresh, None, iterations=2)
     cnts = cv2.findContours(thresh.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     cnts = imutils.grab_contours(cnts)
-
+    f_count += 1
     # loop over the contours
     for c in cnts:
         contours = cv2.contourArea(c)
         if c_count >= conf["c_avg_count"]:
-            print(str(timestamp) + " [INFO] Average contours on last " + str(conf["c_avg_count"]) + " images: " + str(c_avg / conf["c_avg_count"]))
+            print(str(timestamp) + " [INFO] Average contours found: " + str(c_avg / c_count) + " , Contours total: " + str(c_count) + " , Frames Inspected: " + str(f_count) )
+            f_count = 0
             c_count = 0
             c_avg = 0
         else:
             c_count += 1
             c_avg += int(contours)
         # detect movement
-        if contours >= conf["min_contours"]:
+        if contours >= (conf["min_contours"] * conf["min_contours_factor"]):
             print(str(timestamp) + " [INFO] Saving image...")
             # update the last uploaded timestamp and reset the motion counter
             path = "{base_path}/{ts}-{c}.jpg".format(base_path=conf["file_base_path"], ts=timestamp.strftime('%Y%m%d%H%M%S%f'), c=int(contours))
