@@ -31,7 +31,6 @@ time.sleep(conf["camera_warmup_time"])
 avg = None
 c_count = 0
 c_avg = 0
-f_count = 0
 
 # capture frames from the camera
 for f in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
@@ -61,17 +60,15 @@ for f in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True
     
     # threshold the delta image, dilate the thresholded image to fill#
     # in holes, then find contours on thresholded image
-    thresh = cv2.threshold(frameDelta, 1, 255, cv2.THRESH_BINARY)[1]
+    thresh = cv2.threshold(frameDelta, 0, 255, cv2.THRESH_BINARY)[1]
     thresh = cv2.dilate(thresh, None, iterations=2)
     cnts = cv2.findContours(thresh.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     cnts = imutils.grab_contours(cnts)
-    f_count += 1
     # loop over the contours
     for c in cnts:
         contours = cv2.contourArea(c)
         if c_count >= conf["c_avg_count"]:
-            print(str(timestamp) + " [INFO] Average contours found: " + str(c_avg / c_count) + " , Contours total: " + str(c_count) + " , Frames Inspected: " + str(f_count) )
-            f_count = 0
+            print(str(timestamp) + " [INFO] Average contours: " + str(round(c_avg / c_count, 2)) + " , Total: " + str(c_count))
             c_count = 0
             c_avg = 0
         else:

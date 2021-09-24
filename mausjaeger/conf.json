@@ -1,8 +1,8 @@
 {
 	"camera_warmup_time": 2,
-	"min_contours": 15,
+	"min_contours": 20,
 	"min_contours_factor": 10000,
-	"c_avg_count": 480,
+	"c_avg_count": 4800,
 	"resolution": [640, 480],
 	"fps": 4,
 	"file_base_path": "/home/pi/mousehunter-edge/mausjaeger/images/"
